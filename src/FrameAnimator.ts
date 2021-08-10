@@ -72,8 +72,13 @@ export class FrameAnimator<AT = string | number> {
     }
   }
 
+  /**
+   * Updates frame data, i.e. progress animation view
+   * Run via {@link FrameAnimator.update}
+   */
   protected _updateFrame() {
     if (!this.ss) return
+
     const anim = this._currentAnimationData
     if (!anim) return
 
@@ -101,6 +106,7 @@ export class FrameAnimator<AT = string | number> {
   }
 
   /**
+   * Play specified Animation
    * 指定アニメーションを再生
    *
    * @param name アニメーション名
@@ -135,8 +141,10 @@ export class FrameAnimator<AT = string | number> {
   }
 
   /**
+   * **Experimental: method name might change**
+   *
+   * Set animation after some animation
    * 指定アニメーションの次のアニメーションを設定
-   * 名前変えるかも？
    *
    * @param animTag
    * @param nextAnimTag
@@ -155,6 +163,7 @@ export class FrameAnimator<AT = string | number> {
   }
 
   /**
+   * Enable/Disable looping for specified animation
    * 指定アニメーションのループ設定を行う
    *
    * @param animTag アニメーション名

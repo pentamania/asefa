@@ -21,7 +21,7 @@ export interface AnimationData {
 }
 
 /**
- * Asepriteスプライトシートクラス
+ * Core spritesheet class parsing Aseprite exported json
  */
 export class AsepriteSpriteSheet {
   src: string | AsepriteExportedJson = ''
@@ -34,8 +34,9 @@ export class AsepriteSpriteSheet {
   private _maxFrameCount: number = 0
 
   /**
-   * ファイル読み込み
-   * @param srcPath
+   * Load file
+   *
+   * @param srcPath URL of aseprite json file, or aseprite json object
    */
   load(srcPath: string | AsepriteExportedJson) {
     this.src = srcPath
@@ -93,6 +94,11 @@ export class AsepriteSpriteSheet {
     return this
   }
 
+  /**
+   * Setup frame-rect list from aseprite frames
+   *
+   * @param rawFrames
+   */
   protected _setupFrames(rawFrames: AsepriteExportedJson['frames']) {
     this.frames.length = 0
 
@@ -110,6 +116,11 @@ export class AsepriteSpriteSheet {
     this._maxFrameCount = this.frames.length
   }
 
+  /**
+   * Setup animation dictionary from aseprite animation tags
+   *
+   * @param frameTags
+   */
   protected _setupAnimations(frameTags: AspriteAnimationTag[]) {
     this.animations = Object.create(null)
 
@@ -128,19 +139,36 @@ export class AsepriteSpriteSheet {
     })
   }
 
-  getFrame(index: number) {
+  /**
+   * Returns frame by index
+   *
+   * @param index
+   * @returns
+   */
+  public getFrame(index: number): FrameData | undefined {
     return this.frames[index]
   }
 
-  getAnimation(name: string) {
+  /**
+   * Returns AnimationData by name
+   *
+   * @param name
+   * @returns
+   */
+  public getAnimation(name: string): AnimationData | undefined {
     return this.animations[name]
   }
 
   /**
+   * Returns aseprite slice data
+   *
    * @param name name of slice
    * @param index keys index
    */
-  getSliceData(name: string | number, index = 0): AsepriteSliceKey | null {
+  public getSliceData(
+    name: string | number,
+    index = 0
+  ): AsepriteSliceKey | null {
     if (!this.slices[name]) {
       if (process.env.NODE_ENV === 'development') {
         console.warn("[asefa]: Slice name '" + name + "' doesn't exist.")
