@@ -145,6 +145,11 @@ export class FrameAnimator<AT = string | number> {
     if (!this.ss) return
 
     const anim = this.ss.getAnimation((animTag as unknown) as string)
+    if (!anim) {
+      if (process.env.NODE_ENV === 'development')
+        console.warn(`Animation ${animTag} doesn't exists`)
+      return this
+    }
     anim.next = (nextAnimTag as unknown) as string
     return this
   }
@@ -158,6 +163,11 @@ export class FrameAnimator<AT = string | number> {
   loopAnimation(animTag: AT, flag: boolean = true) {
     if (!this.ss) return
     const anim = this.ss.getAnimation((animTag as unknown) as string)
+    if (!anim) {
+      if (process.env.NODE_ENV === 'development')
+        console.warn(`Animation ${animTag} doesn't exists`)
+      return
+    }
     anim.loop = flag
   }
 }
