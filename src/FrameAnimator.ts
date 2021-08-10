@@ -95,7 +95,7 @@ export class FrameAnimator<AT = string | number> {
     const frame = this.ss.getFrame(index)
 
     // Frame更新コールバック実行
-    if (this._frameUpdateCallback) this._frameUpdateCallback(frame)
+    if (frame && this._frameUpdateCallback) this._frameUpdateCallback(frame)
 
     this._currentFrameData = frame
   }
