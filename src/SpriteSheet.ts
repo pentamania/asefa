@@ -98,7 +98,7 @@ export class AsepriteSpriteSheet {
    *
    * @param params
    */
-  protected setup(params: AsepriteExportedJson): this {
+  public setup(params: AsepriteExportedJson): this {
     this._setupFrames(params.frames)
     this._setupAnimations(params.meta.frameTags)
 
