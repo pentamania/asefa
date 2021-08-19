@@ -53,44 +53,40 @@ export class AsepriteSpriteSheet {
   }
 
   /**
-   * Load file
+   * Load and parse aseprite json file
    *
-   * @param srcPath URL of aseprite json file, or aseprite json object
+   * (Only for browser, unavailable in node.js)
+   *
+   * @example
+   * async function init() {
+   *   const ss = await new asefa.AsepriteSpriteSheet().load('assets/fighter-ss.json')
+   * }
+   *
+   * @param srcPathOrJson
+   * URL of aseprite json file, or aseprite json object
    */
-  load(srcPath: string | AsepriteExportedJson) {
-    this.src = srcPath
-    return new Promise(this._load.bind(this))
-  }
-
-  /**
-   * @param resolve
-   */
-  private _load(resolve: Function) {
-    var self = this
-
-    if (typeof this.src === 'string') {
-      // src is filepath
-      // TODO: XHRをfetchで置き換える？
-      var xml = new XMLHttpRequest()
-      xml.open('GET', this.src)
-      xml.onreadystatechange = function () {
-        if (xml.readyState === 4) {
-          if ([200, 201, 0].indexOf(xml.status) !== -1) {
-            var data = xml.responseText
-            var json: AsepriteExportedJson = JSON.parse(data)
-
-            self.setup(json)
-
-            resolve(self)
+  load(srcPathOrJson: string | AsepriteExportedJson): Promise<this> {
+    return new Promise(resolve => {
+      if (typeof srcPathOrJson === 'string') {
+        // src is filepath
+        // TODO: XHRをfetchで置き換える？
+        const xml = new XMLHttpRequest()
+        xml.open('GET', srcPathOrJson)
+        xml.onreadystatechange = () => {
+          if (xml.readyState === 4) {
+            if ([200, 201, 0].indexOf(xml.status) !== -1) {
+              this.setup(JSON.parse(xml.responseText))
+              resolve(this)
+            }
           }
         }
+        xml.send(null)
+      } else {
+        // src is already parsed json object
+        this.setup(srcPathOrJson)
+        resolve(this)
       }
-      xml.send(null)
-    } else {
-      // src is already parsed json object
-      this.setup(this.src)
-      resolve(self)
-    }
+    })
   }
 
   /**
@@ -99,6 +95,8 @@ export class AsepriteSpriteSheet {
    * @param params
    */
   public setup(params: AsepriteExportedJson): this {
+    this.src = params
+
     this._setupFrames(params.frames)
     this._setupAnimations(params.meta.frameTags)
 
