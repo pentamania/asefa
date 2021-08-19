@@ -36,7 +36,9 @@ export interface AnimationData {
  * ass.getFrame(0); // {someFramedata}
  */
 export class AsepriteSpriteSheet {
-  src: string | AsepriteExportedJson = ''
+  /** Reference to the original aseprite JSON data */
+  public data?: AsepriteExportedJson
+
   frames: FrameData[] = []
   animations: {
     default: AnimationData
@@ -95,7 +97,7 @@ export class AsepriteSpriteSheet {
    * @param params
    */
   public setup(params: AsepriteExportedJson): this {
-    this.src = params
+    this.data = params
 
     this._setupFrames(params.frames)
     this._setupAnimations(params.meta.frameTags)
