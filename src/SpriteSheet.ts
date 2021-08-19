@@ -22,6 +22,18 @@ export interface AnimationData {
 
 /**
  * Core spritesheet class parsing Aseprite exported json
+ *
+ * @example
+ * // create directly
+ * const ssjson = {"frames": [ {someFramedata} ], meta: {...}};
+ * const ass = AsepriteSpriteSheet.create(ssjson)
+ *
+ * // or create from file path (in browser)
+ * const ass = await fetch("path/to/file.json")
+ *   .then((res) => res.json())
+ *   .then((ssjson) => AsepriteSpriteSheet.create(ssjson)));
+ *
+ * ass.getFrame(0); // {someFramedata}
  */
 export class AsepriteSpriteSheet {
   src: string | AsepriteExportedJson = ''
@@ -32,6 +44,13 @@ export class AsepriteSpriteSheet {
   } = Object.create(null)
   slices: { [k: string]: AspriteSliceData } = Object.create(null)
   private _maxFrameCount: number = 0
+
+  /**
+   * @param json optional
+   */
+  constructor(json?: AsepriteExportedJson) {
+    if (json != null) this.setup(json)
+  }
 
   /**
    * Load file
@@ -180,6 +199,16 @@ export class AsepriteSpriteSheet {
     } else {
       return null
     }
+  }
+
+  /**
+   * Create instance from Aseprite exported json
+   *
+   * @static
+   * @param json
+   */
+  static create(json: AsepriteExportedJson) {
+    return new this(json)
   }
 
   get maxFrameCount() {
