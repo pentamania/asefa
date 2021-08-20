@@ -104,8 +104,8 @@ export class AsepriteSpriteSheet {
   public setup(params: AsepriteExportedJson): this {
     this.data = params
 
-    this._setupFrames(params.frames)
-    this._setupAnimations(params.meta.frameTags)
+    this._resetFrames(params.frames)
+    this._resetAnimations(params.meta.frameTags)
 
     // Parse slices (if exists)
     this.slices = Object.create(null)
@@ -119,11 +119,11 @@ export class AsepriteSpriteSheet {
   }
 
   /**
-   * Setup frame-rect list from aseprite frames
+   * Reset frames(frame-rect list) from asepriteJson `frames` data
    *
    * @param rawFrames
    */
-  protected _setupFrames(rawFrames: AsepriteExportedJson['frames']) {
+  protected _resetFrames(rawFrames: AsepriteExportedJson['frames']) {
     this.frames.length = 0
 
     // Use Object.entries to support both "Hashmap" and "Array" type
@@ -140,11 +140,11 @@ export class AsepriteSpriteSheet {
   }
 
   /**
-   * Setup animation dictionary from aseprite animation tags
+   * Reset animation dictionary from aseprite animation tags
    *
    * @param frameTags
    */
-  protected _setupAnimations(frameTags: AspriteAnimationTag[]) {
+  protected _resetAnimations(frameTags: AspriteAnimationTag[]) {
     this.animations = Object.create(null)
     frameTags.forEach(tag => {
       this.animations[tag.name] = {
