@@ -16,7 +16,7 @@ export interface AsepriteSliceKey {
   pivot: { x: number; y: number }
 }
 
-export interface AspriteSliceData {
+export interface AsepriteSliceData {
   /**
    * Name of slice set in Aseprite
    */
@@ -39,7 +39,7 @@ export interface AsepriteFrameMap {
   [id: string]: AsepriteFrameData
 }
 
-export interface AspriteAnimationTag {
+export interface AsepriteAnimationTag {
   /**
    * Animation Tag name
    */
@@ -113,11 +113,11 @@ export interface AsepriteExportedJson {
      * @example
      * [{ name: "swing"; from: 0; to: 3; direction: "pingpong" }];
      */
-    frameTags: AspriteAnimationTag[]
+    frameTags: AsepriteAnimationTag[]
 
     /**
      * Array of slice data
      */
-    slices: AspriteSliceData[]
+    slices: AsepriteSliceData[]
   }
 }

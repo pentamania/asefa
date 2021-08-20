@@ -1,7 +1,7 @@
 import {
   AsepriteExportedJson,
-  AspriteAnimationTag,
-  AspriteSliceData,
+  AsepriteAnimationTag,
+  AsepriteSliceData,
   AsepriteSliceKey,
 } from './types.aseprite'
 import { createFramesByTagProperty } from './helpers'
@@ -46,7 +46,7 @@ export class AsepriteSpriteSheet {
   public animations: Record<string, AnimationData> = Object.create(null)
 
   /** All slices parsed from AsepriteExportedJson.meta.slices */
-  public slices: { [k: string]: AspriteSliceData } = Object.create(null)
+  public slices: { [k: string]: AsepriteSliceData } = Object.create(null)
 
   /**
    * @param json optional
@@ -144,7 +144,7 @@ export class AsepriteSpriteSheet {
    *
    * @param frameTags
    */
-  protected _resetAnimations(frameTags: AspriteAnimationTag[]) {
+  protected _resetAnimations(frameTags: AsepriteAnimationTag[]) {
     this.animations = Object.create(null)
     frameTags.forEach(tag => {
       this.animations[tag.name] = {

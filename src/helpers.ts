@@ -1,4 +1,4 @@
-import { AspriteAnimationTag } from './types.aseprite'
+import { AsepriteAnimationTag } from './types.aseprite'
 
 /**
  * 与えられた引数値の間を整数補間した配列を返す
@@ -38,7 +38,7 @@ function createInterpolatedArray(...milestones: number[]): number[] {
  * @param tagProp
  */
 export function createFramesByTagProperty(
-  tagProp: AspriteAnimationTag
+  tagProp: AsepriteAnimationTag
 ): number[] {
   switch (tagProp.direction) {
     case 'pingpong':
