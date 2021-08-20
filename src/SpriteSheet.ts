@@ -43,10 +43,7 @@ export class AsepriteSpriteSheet {
   public frames: FrameData[] = []
 
   /** All animations parsed from AsepriteExportedJson.meta.frameTags */
-  public animations: {
-    default: AnimationData
-    [k: string]: AnimationData
-  } = Object.create(null)
+  public animations: Record<string, AnimationData> = Object.create(null)
 
   /** All slices parsed from AsepriteExportedJson.meta.slices */
   public slices: { [k: string]: AspriteSliceData } = Object.create(null)
