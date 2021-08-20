@@ -150,15 +150,6 @@ export class AsepriteSpriteSheet {
    */
   protected _setupAnimations(frameTags: AspriteAnimationTag[]) {
     this.animations = Object.create(null)
-
-    // Add "default" animation
-    this.animations['default'] = {
-      frames: Array.from({ length: this._maxFrameCount }, (_v, k) => k),
-      // frames: [].range(0, this._maxFrameCount),
-      // next: "default",
-      // frequency: 1,
-    }
-
     frameTags.forEach(tag => {
       this.animations[tag.name] = {
         frames: createFramesByTagProperty(tag),
