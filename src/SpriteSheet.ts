@@ -21,14 +21,14 @@ export interface AnimationData {
 }
 
 /**
- * Core spritesheet class parsing Aseprite exported json
+ * Core Spritesheet class setup from Aseprite exported json
  *
  * @example
  * // create directly
  * const ssjson = {"frames": [ {someFramedata} ], meta: {...}};
  * const ass = AsepriteSpriteSheet.create(ssjson)
  *
- * // or create from file path (in browser)
+ * // or create from file path (via browser fetch)
  * const ass = await fetch("path/to/file.json")
  *   .then((res) => res.json())
  *   .then((ssjson) => AsepriteSpriteSheet.create(ssjson)));
@@ -39,12 +39,19 @@ export class AsepriteSpriteSheet {
   /** Reference to the original aseprite JSON data */
   public data?: AsepriteExportedJson
 
-  frames: FrameData[] = []
-  animations: {
+  /** All frames parsed from AsepriteExportedJson.frames */
+  public frames: FrameData[] = []
+
+  /** All animations parsed from AsepriteExportedJson.meta.frameTags */
+  public animations: {
     default: AnimationData
     [k: string]: AnimationData
   } = Object.create(null)
-  slices: { [k: string]: AspriteSliceData } = Object.create(null)
+
+  /** All slices parsed from AsepriteExportedJson.meta.slices */
+  public slices: { [k: string]: AspriteSliceData } = Object.create(null)
+
+  /** Frame num: Updated via {@link AsepriteSpriteSheet._setupFrames}  */
   private _maxFrameCount: number = 0
 
   /**
@@ -65,7 +72,7 @@ export class AsepriteSpriteSheet {
    * }
    *
    * @param srcPathOrJson
-   * URL of aseprite json file, or aseprite json object
+   * URL of aseprite json file, or aseprite JSON object
    */
   load(srcPathOrJson: string | AsepriteExportedJson): Promise<this> {
     return new Promise(resolve => {
@@ -92,6 +99,10 @@ export class AsepriteSpriteSheet {
   }
 
   /**
+   * [en]
+   * Sets up frames, animations, etc. from Aseprite-exported JSON data
+   *
+   * [jp]
    * JSONデータからフレーム・アニメーションを組み立てる
    *
    * @param params
@@ -121,7 +132,7 @@ export class AsepriteSpriteSheet {
   protected _setupFrames(rawFrames: AsepriteExportedJson['frames']) {
     this.frames.length = 0
 
-    // Supporting both types: Hashmap and Array
+    // Use Object.entries to support both "Hashmap" and "Array" type
     for (const [_key, val] of Object.entries(rawFrames)) {
       const f = val.frame
       this.frames.push({
