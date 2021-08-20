@@ -10,7 +10,7 @@ type FrameUpdateCallback = (frame: FrameData) => any
  * AspriteのFrameAnimationクラス
  */
 export class FrameAnimator<AT = string | number> {
-  ss?: AsepriteSpriteSheet
+  protected ss?: AsepriteSpriteSheet
   private _elapsedTime: number = 0
   private _finished: boolean = false
   paused: boolean = true
@@ -178,5 +178,9 @@ export class FrameAnimator<AT = string | number> {
       return
     }
     anim.loop = flag
+  }
+
+  get spritesheet() {
+    return this.ss
   }
 }
