@@ -48,9 +48,6 @@ export class AsepriteSpriteSheet {
   /** All slices parsed from AsepriteExportedJson.meta.slices */
   public slices: { [k: string]: AspriteSliceData } = Object.create(null)
 
-  /** Frame num: Updated via {@link AsepriteSpriteSheet._setupFrames}  */
-  private _maxFrameCount: number = 0
-
   /**
    * @param json optional
    */
@@ -140,7 +137,6 @@ export class AsepriteSpriteSheet {
         duration: val.duration,
       })
     }
-    this._maxFrameCount = this.frames.length
   }
 
   /**
@@ -210,7 +206,10 @@ export class AsepriteSpriteSheet {
     return new this(json)
   }
 
+  /**
+   * Number of frames
+   */
   get maxFrameCount() {
-    return this._maxFrameCount
+    return this.frames.length
   }
 }
