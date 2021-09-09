@@ -1,4 +1,4 @@
-import { AsepriteSpriteSheet, AnimationData, FrameData } from './SpriteSheet'
+import { Spritesheet, AnimationData, FrameData } from './SpriteSheet'
 
 /**
  * フレーム更新時のコールバック関数型
@@ -10,7 +10,7 @@ type FrameUpdateCallback = (frame: FrameData) => any
  * AspriteのFrameAnimationクラス
  */
 export class FrameAnimator<AT = string | number> {
-  protected ss?: AsepriteSpriteSheet
+  protected ss?: Spritesheet
   private _elapsedTime: number = 0
   private _finished: boolean = false
   paused: boolean = true
@@ -23,7 +23,7 @@ export class FrameAnimator<AT = string | number> {
   /**
    * @param ss
    */
-  constructor(ss?: AsepriteSpriteSheet) {
+  constructor(ss?: Spritesheet) {
     if (ss) this.setSpriteSheet(ss)
   }
 
@@ -32,7 +32,7 @@ export class FrameAnimator<AT = string | number> {
    *
    * @param ss
    */
-  setSpriteSheet(ss: AsepriteSpriteSheet) {
+  setSpriteSheet(ss: Spritesheet) {
     this.ss = ss
     return this
   }

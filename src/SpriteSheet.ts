@@ -35,7 +35,7 @@ export interface AnimationData {
  *
  * ass.getFrame(0); // {someFramedata}
  */
-export class AsepriteSpriteSheet {
+export class Spritesheet {
   /** Reference to the original aseprite JSON data */
   public data?: AsepriteExportedJson
 
