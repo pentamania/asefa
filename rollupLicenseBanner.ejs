@@ -1,0 +1,11 @@
+<%= pkg.name %> <%= pkg.version %>
+Copyright (c) 2021 <%= pkg.author %>
+Released under the MIT license
+https://opensource.org/licenses/mit-license.php
+<% /* Dependencies: */ %>
+<% _.forEach(dependencies, function (dependency) { %>
+  <%= dependency.name %> <%= dependency.version %>
+  Copyright (c) 2021 <%= (dependency.name.match(/core-js/)) ? "Denis Pushkarev" : (dependency.author && dependency.author.name) ? dependency.author.name : dependency.author %>
+  Released under the <%= dependency.license %> license
+  <%= dependency.license === "MIT" ? "https://opensource.org/licenses/mit-license.php" : "" %>
+<% }) %>

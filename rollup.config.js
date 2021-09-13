@@ -1,20 +1,15 @@
+import { join } from 'path'
 import replace from '@rollup/plugin-replace'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import license from 'rollup-plugin-license'
-import { name, version, license as LICENSE, author } from './package.json'
+import { name } from './package.json'
 
 // Config
 const extensions = ['.ts']
 const noDeclarationFiles = { compilerOptions: { declaration: false } }
-
-const banner = `/*!
- * ${name} v${version}
- * ${LICENSE} Licensed
- *
- * Copyright (C) ${author}
- */`
+const licenseFileTemplatePath = join(__dirname, 'rollupLicenseBanner.ejs')
 
 export default [
   // commonJS
@@ -39,7 +34,13 @@ export default [
         ],
         babelHelpers: 'runtime',
       }),
-      license({ banner: banner }),
+      license({
+        banner: {
+          content: {
+            file: licenseFileTemplatePath,
+          },
+        },
+      }),
     ],
   },
 
@@ -65,7 +66,13 @@ export default [
         ],
         babelHelpers: 'runtime',
       }),
-      license({ banner: banner }),
+      license({
+        banner: {
+          content: {
+            file: licenseFileTemplatePath,
+          },
+        },
+      }),
     ],
   },
 
@@ -88,7 +95,13 @@ export default [
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
-      license({ banner: banner }),
+      license({
+        banner: {
+          content: {
+            file: licenseFileTemplatePath,
+          },
+        },
+      }),
     ],
   },
 
@@ -119,7 +132,13 @@ export default [
           warnings: false,
         },
       }),
-      license({ banner: banner }),
+      license({
+        banner: {
+          content: {
+            file: licenseFileTemplatePath,
+          },
+        },
+      }),
     ],
   },
 ]
