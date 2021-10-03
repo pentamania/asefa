@@ -2,6 +2,8 @@ import { join } from 'path'
 import replace from '@rollup/plugin-replace'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
+import commonjs from 'rollup-plugin-commonjs'
+import nodeResolve from 'rollup-plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 import license from 'rollup-plugin-license'
 import { name } from './package.json'
@@ -12,7 +14,7 @@ const noDeclarationFiles = { compilerOptions: { declaration: false } }
 const licenseFileTemplatePath = join(__dirname, 'rollupLicenseBanner.ejs')
 
 export default [
-  // commonJS
+  // commonJS (should be at first)
   {
     input: 'src/index.ts',
     output: {
@@ -76,22 +78,18 @@ export default [
     ],
   },
 
-  // UMD Dev
-  // TODO: Include polyfills for umd build
+  // commonJS bundle => UMD Dev
   {
-    input: 'src/index.ts',
+    input: 'lib/asefa.js',
     output: {
       file: `dist/${name}.js`,
       format: 'umd',
       name: `${name}`,
+      exports: 'named',
     },
     plugins: [
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        babelHelpers: 'bundled',
-      }),
+      commonjs(),
+      nodeResolve(),
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
@@ -105,22 +103,18 @@ export default [
     ],
   },
 
-  // UMD Prod
+  // commonJS bundle => UMD Prod
   {
-    input: 'src/index.ts',
+    input: 'lib/asefa.js',
     output: {
       file: `dist/${name}.min.js`,
       format: 'umd',
       name: `${name}`,
+      exports: 'named',
     },
     plugins: [
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        skipPreflightCheck: true,
-        babelHelpers: 'bundled',
-      }),
+      commonjs(),
+      nodeResolve(),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
