@@ -212,4 +212,24 @@ export class Spritesheet {
   get maxFrameCount() {
     return this.frames.length
   }
+
+  /**
+   * Returns the spritesheet width by referencing data Json
+   *
+   * If no data available, 0 is returned
+   */
+  get width() {
+    if (!this.data) return 0
+    return this.data.meta.size.w
+  }
+
+  /**
+   * Returns the spritesheet width by referencing data Json
+   *
+   * If no data available, 0 is returned
+   */
+  get height() {
+    if (!this.data) return 0
+    return this.data.meta.size.h
+  }
 }
