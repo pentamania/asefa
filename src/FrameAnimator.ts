@@ -183,4 +183,8 @@ export class FrameAnimator<AT = string | number> {
   get spritesheet() {
     return this.ss
   }
+
+  get currentFrame() {
+    return this._currentFrameData
+  }
 }
