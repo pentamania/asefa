@@ -10,7 +10,7 @@ type FrameUpdateCallback = (frame: FrameData) => any
  * AspriteのFrameAnimationクラス
  */
 export class FrameAnimator<AT = string | number> {
-  protected ss?: Spritesheet
+  protected ss: Spritesheet
   private _elapsedTime: number = 0
   private _finished: boolean = false
   paused: boolean = true
@@ -23,8 +23,8 @@ export class FrameAnimator<AT = string | number> {
   /**
    * @param ss
    */
-  constructor(ss?: Spritesheet) {
-    if (ss) this.setSpriteSheet(ss)
+  constructor(ss: Spritesheet = new Spritesheet()) {
+    this.ss = ss
   }
 
   /**
@@ -77,8 +77,6 @@ export class FrameAnimator<AT = string | number> {
    * Run via {@link FrameAnimator.update}
    */
   protected _updateFrame() {
-    if (!this.ss) return
-
     const anim = this._currentAnimationData
     if (!anim) return
 
@@ -113,8 +111,6 @@ export class FrameAnimator<AT = string | number> {
    * @param keepAnimation 指定アニメーションがすでに再生中なら何もしない（デフォルト：true）
    */
   gotoAndPlay(name: AT, keepAnimation: boolean = true): this {
-    if (!this.ss) return this
-
     // 同名アニメーションが再生中、かつkeepフラグが立っているときは何もしない
     if (
       keepAnimation &&
@@ -150,8 +146,6 @@ export class FrameAnimator<AT = string | number> {
    * @param nextAnimTag
    */
   setNext(animTag: AT, nextAnimTag: AT) {
-    if (!this.ss) return
-
     const anim = this.ss.getAnimation((animTag as unknown) as string)
     if (!anim) {
       if (process.env.NODE_ENV === 'development')
@@ -170,7 +164,6 @@ export class FrameAnimator<AT = string | number> {
    * @param flag ループ設定
    */
   loopAnimation(animTag: AT, flag: boolean = true) {
-    if (!this.ss) return
     const anim = this.ss.getAnimation((animTag as unknown) as string)
     if (!anim) {
       if (process.env.NODE_ENV === 'development')
