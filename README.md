@@ -37,6 +37,8 @@ js library to manage aseprite exported json spritesheet frame animation
 </body>
 ```
 
+See [examples](examples) for more.
+
 ## Documentation
 
 TODO
