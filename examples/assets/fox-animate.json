@@ -1,0 +1,158 @@
+{ "frames": [
+   {
+    "filename": "fox-animate 0.aseprite",
+    "frame": { "x": 1, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 500
+   },
+   {
+    "filename": "fox-animate 1.aseprite",
+    "frame": { "x": 27, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 350
+   },
+   {
+    "filename": "fox-animate 2.aseprite",
+    "frame": { "x": 53, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 3.aseprite",
+    "frame": { "x": 79, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 4.aseprite",
+    "frame": { "x": 105, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 5.aseprite",
+    "frame": { "x": 131, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 6.aseprite",
+    "frame": { "x": 157, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 7.aseprite",
+    "frame": { "x": 183, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 8.aseprite",
+    "frame": { "x": 209, "y": 1, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 9.aseprite",
+    "frame": { "x": 1, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 200
+   },
+   {
+    "filename": "fox-animate 10.aseprite",
+    "frame": { "x": 27, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 11.aseprite",
+    "frame": { "x": 53, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 12.aseprite",
+    "frame": { "x": 79, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 155
+   },
+   {
+    "filename": "fox-animate 13.aseprite",
+    "frame": { "x": 105, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 500
+   },
+   {
+    "filename": "fox-animate 14.aseprite",
+    "frame": { "x": 131, "y": 27, "w": 26, "h": 26 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 26, "h": 26 },
+    "sourceSize": { "w": 26, "h": 26 },
+    "duration": 500
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.30-x64",
+  "image": "fox-animate.png",
+  "format": "I8",
+  "size": { "w": 256, "h": 54 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "front", "from": 0, "to": 1, "direction": "forward" },
+   { "name": "walk_front", "from": 2, "to": 3, "direction": "forward" },
+   { "name": "back", "from": 4, "to": 4, "direction": "forward" },
+   { "name": "walk_back", "from": 5, "to": 6, "direction": "forward" },
+   { "name": "walk_side", "from": 7, "to": 8, "direction": "forward" },
+   { "name": "jump", "from": 9, "to": 10, "direction": "reverse" },
+   { "name": "down", "from": 11, "to": 12, "direction": "forward" },
+   { "name": "wait_quarter", "from": 13, "to": 14, "direction": "forward" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>asefa with css-sprite example</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body,
+      main {
+        height: 100%;
+      }
+      body {
+        background-color: rgb(172, 226, 219);
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+      }
+      .sprite-container {
+        width: 256px;
+        height: 256px;
+        padding: 0.8rem;
+        border: 1px solid black;
+        border-radius: 1px;
+        background-color: white;
+      }
+      .sprite {
+        width: 100%;
+        height: 100%;
+        image-rendering: pixelated;
+      }
+      select {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>asefa + css-sprite</h1>
+      <div class="sprite-container">
+        <div id="player" class="sprite"></div>
+      </div>
+      <select id="animation-list"></select>
+    </main>
+
+    <script src="https://unpkg.com/asefa@0.1.0/dist/asefa.js"></script>
+    <script src="main.js" defer></script>
+  </body>
+</html>
