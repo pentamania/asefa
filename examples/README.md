@@ -1,3 +1,3 @@
 # Examples
 
-- [CSS sprite](css/index.html)
+- [CSS sprite](css)
