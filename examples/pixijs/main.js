@@ -17,6 +17,16 @@ async function loadPixiTexture(src) {
   })
 }
 
+/**
+ * Helper: Sprite frame setter
+ * @param {PIXI.Sprite} pixiSprite
+ * @param {{x:number, y: number, width: number, height: number}} frame
+ */
+function setSpriteFrame(pixiSprite, frame) {
+  pixiSprite.texture.frame.copyFrom(frame)
+  pixiSprite.texture.updateUvs()
+}
+
 // Main
 ;(async () => {
   // Create app
@@ -35,7 +45,6 @@ async function loadPixiTexture(src) {
     sprite.anchor.set(0.5, 0.5)
     sprite.position.set(app.view.width / 2, app.view.height / 2)
     sprite.scale.set(8)
-    app.stage.addChild(sprite)
 
     // Set up animator
     const asess = await new asefa.Spritesheet().load(ssJsonSrc)
@@ -47,12 +56,15 @@ async function loadPixiTexture(src) {
     // Let all animations loop
     animKeys.forEach(animKey => animator.loopAnimation(animKey))
 
-    // Set up animator ticking
+    // Set Temporary frame
+    setSpriteFrame(sprite, animator.ss.getFrame(0))
+
+    // Set up animator ticking callback
     app.ticker.add(() => animator.update(app.ticker.deltaMS))
-    animator.setFrameUpdateCallback(f => {
-      sprite.texture.frame.copyFrom(f)
-      sprite.texture.updateUvs()
-    })
+    animator.setFrameUpdateCallback(f => setSpriteFrame(sprite, f))
+
+    // Add sprite to stage
+    app.stage.addChild(sprite)
 
     // Setup animation select element
     {
