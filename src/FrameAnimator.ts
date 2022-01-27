@@ -161,16 +161,25 @@ export class FrameAnimator<AT = string | number> {
    * 指定アニメーションのループ設定を行う
    *
    * @param animTag アニメーション名
+   * If no tag is specified, all animation-loop is enabled/disabled
+   *
    * @param flag ループ設定
    */
-  loopAnimation(animTag: AT, flag: boolean = true) {
-    const anim = this.ss.getAnimation((animTag as unknown) as string)
-    if (!anim) {
-      if (process.env.NODE_ENV === 'development')
-        console.warn(`Animation ${animTag} doesn't exists`)
-      return
+  loopAnimation(animTag?: AT, flag: boolean = true) {
+    if (animTag) {
+      const anim = this.ss.getAnimation((animTag as unknown) as string)
+      if (!anim) {
+        if (process.env.NODE_ENV === 'development')
+          console.warn(`Animation ${animTag} doesn't exists`)
+        return
+      }
+      anim.loop = flag
+    } else {
+      // Set all animation
+      Object.keys(this.ss.animations).forEach(animKey => {
+        this.loopAnimation((animKey as unknown) as AT, flag)
+      })
     }
-    anim.loop = flag
   }
 
   get spritesheet() {
