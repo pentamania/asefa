@@ -37,8 +37,8 @@ function createInterpolatedArray(...milestones: number[]): number[] {
  *
  * @param tagProp
  */
-export function createFramesByTagProperty(
-  tagProp: AsepriteAnimationTag
+export function createFramesByTagProperty<AT>(
+  tagProp: AsepriteAnimationTag<AT>
 ): number[] {
   switch (tagProp.direction) {
     case 'pingpong':

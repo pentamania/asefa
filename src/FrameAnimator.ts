@@ -1,4 +1,5 @@
 import { Spritesheet, AnimationData, FrameData } from './SpriteSheet'
+import { CommonKeyType } from './types.common'
 
 /**
  * フレーム更新時のコールバック関数型
@@ -9,21 +10,21 @@ type FrameUpdateCallback = (frame: FrameData) => any
 /**
  * AspriteのFrameAnimationクラス
  */
-export class FrameAnimator<AT = string | number> {
-  protected ss: Spritesheet
+export class FrameAnimator<AT extends CommonKeyType = string> {
+  protected ss: Spritesheet<AT>
   private _elapsedTime: number = 0
   private _finished: boolean = false
   paused: boolean = true
   private _currentFrameData?: FrameData
   protected _currentFrameIndex: number = 0
   protected _currentAnimationName?: AT
-  protected _currentAnimationData?: AnimationData
+  protected _currentAnimationData?: AnimationData<AT>
   private _frameUpdateCallback?: FrameUpdateCallback
 
   /**
    * @param ss
    */
-  constructor(ss: Spritesheet = new Spritesheet()) {
+  constructor(ss: Spritesheet<AT> = new Spritesheet()) {
     this.ss = ss
   }
 
@@ -32,7 +33,7 @@ export class FrameAnimator<AT = string | number> {
    *
    * @param ss
    */
-  setSpriteSheet(ss: Spritesheet) {
+  setSpriteSheet(ss: Spritesheet<AT>) {
     this.ss = ss
     return this
   }
@@ -126,9 +127,7 @@ export class FrameAnimator<AT = string | number> {
     this._currentAnimationName = name
 
     this._currentFrameIndex = 0
-    this._currentAnimationData = this.ss.getAnimation(
-      (name as unknown) as string
-    )
+    this._currentAnimationData = this.ss.getAnimation(name)
     this._updateFrame()
 
     this.paused = false
@@ -146,13 +145,13 @@ export class FrameAnimator<AT = string | number> {
    * @param nextAnimTag
    */
   setNext(animTag: AT, nextAnimTag: AT) {
-    const anim = this.ss.getAnimation((animTag as unknown) as string)
+    const anim = this.ss.getAnimation(animTag)
     if (!anim) {
       if (process.env.NODE_ENV === 'development')
         console.warn(`Animation ${animTag} doesn't exists`)
       return this
     }
-    anim.next = (nextAnimTag as unknown) as string
+    anim.next = nextAnimTag
     return this
   }
 
@@ -167,7 +166,7 @@ export class FrameAnimator<AT = string | number> {
    */
   loopAnimation(animTag?: AT, flag: boolean = true) {
     if (animTag) {
-      const anim = this.ss.getAnimation((animTag as unknown) as string)
+      const anim = this.ss.getAnimation(animTag)
       if (!anim) {
         if (process.env.NODE_ENV === 'development')
           console.warn(`Animation ${animTag} doesn't exists`)
@@ -176,8 +175,8 @@ export class FrameAnimator<AT = string | number> {
       anim.loop = flag
     } else {
       // Set all animation
-      Object.keys(this.ss.animations).forEach(animKey => {
-        this.loopAnimation((animKey as unknown) as AT, flag)
+      ;(Object.keys(this.ss.animations) as AT[]).forEach(animKey => {
+        this.loopAnimation(animKey, flag)
       })
     }
   }

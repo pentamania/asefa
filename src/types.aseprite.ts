@@ -39,11 +39,11 @@ export interface AsepriteFrameMap {
   [id: string]: AsepriteFrameData
 }
 
-export interface AsepriteAnimationTag {
+export interface AsepriteAnimationTag<AT> {
   /**
    * Animation Tag name
    */
-  name: string
+  name: AT
   /**
    * アニメーション開始フレーム番号
    * Animation starting frame No.
@@ -61,7 +61,7 @@ export interface AsepriteAnimationTag {
   direction: AsepriteAnimationDirection
 }
 
-export interface AsepriteExportedJson {
+export interface AsepriteExportedJson<AT> {
   /**
    * Frames.
    * Typing depends on your aseprite export setting
@@ -113,7 +113,7 @@ export interface AsepriteExportedJson {
      * @example
      * [{ name: "swing"; from: 0; to: 3; direction: "pingpong" }];
      */
-    frameTags: AsepriteAnimationTag[]
+    frameTags: AsepriteAnimationTag<AT>[]
 
     /**
      * Array of slice data
