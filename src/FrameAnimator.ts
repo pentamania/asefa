@@ -108,7 +108,7 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
    * Play specified Animation
    * 指定アニメーションを再生
    *
-   * @param name アニメーション名
+   * @param name アニメーション名(存在しない場合は何もしない)
    * @param keepAnimation 指定アニメーションがすでに再生中なら何もしない（デフォルト：true）
    */
   gotoAndPlay(name: AT, keepAnimation: boolean = true): this {
@@ -123,11 +123,16 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
       return this
     }
 
+    const anim = this.ss.getAnimation(name)
+
+    // アニメーションが存在しない場合は何もしない
+    if (!anim) return this
+
     // 現在のアニメーション名記録
     this._currentAnimationName = name
 
     this._currentFrameIndex = 0
-    this._currentAnimationData = this.ss.getAnimation(name)
+    this._currentAnimationData = anim
     this._updateFrame()
 
     this.paused = false
