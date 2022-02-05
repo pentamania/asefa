@@ -131,7 +131,23 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
     // 現在のアニメーション名記録
     this._currentAnimationName = name
 
-    this._currentFrameIndex = 0
+    // Animator内部Indexを設定：通常は0。
+    // ただしpingpongアニメーション等を滑らかにループさせるため、
+    // 直前アニメの最終フレーム値と次アニメの開始フレーム値が同じときは
+    // 1を設定して最初のフレームをスキップさせる
+    if (!this._currentAnimationData || anim.frames.length <= 1) {
+      // 直前アニメーションが無いときは0設定
+      // HACK: 次アニメが1フレーム（止め絵）のときは無限ループしてしまうので強制的に0設定
+      this._currentFrameIndex = 0
+    } else {
+      const _lastAnimFinalSSIndex: number = this._currentAnimationData.frames[
+        this._currentAnimationData.frames.length - 1
+      ]
+      const _nextAnimStartSSIndex: number = anim.frames[0]
+      this._currentFrameIndex =
+        _lastAnimFinalSSIndex === _nextAnimStartSSIndex ? 1 : 0
+    }
+
     this._currentAnimationData = anim
     this._updateFrame()
 
