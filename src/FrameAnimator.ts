@@ -8,7 +8,7 @@ import { CommonKeyType } from './types.common'
 type FrameUpdateCallback = (frame: FrameData) => any
 
 /**
- * AspriteのFrameAnimationクラス
+ * FrameAnimator class
  */
 export class FrameAnimator<AT extends CommonKeyType = string> {
   protected ss: Spritesheet<AT>
@@ -29,6 +29,7 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
   }
 
   /**
+   * [jp]
    * spritesheetオブジェクトをセット
    *
    * @param ss
@@ -39,6 +40,7 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
   }
 
   /**
+   * [jp]
    * フレーム更新時のコールバック処理を設定
    *
    * @param cb
@@ -49,9 +51,9 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
 
   /**
    * Tick frame animation.
-   * Usually run every frame
+   * Usually called in each app/game cycle
    *
-   * @param deltaTime
+   * @param deltaTime The amount of time elapsed from last update call
    */
   update(deltaTime: number) {
     if (this.paused) return
@@ -75,7 +77,7 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
 
   /**
    * Updates frame data, i.e. progress animation view
-   * Run via {@link FrameAnimator.update}
+   * Usually run via {@link FrameAnimator.update}
    */
   protected _updateFrame() {
     const anim = this._currentAnimationData
@@ -106,6 +108,8 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
 
   /**
    * Play specified Animation
+   *
+   * [jp]
    * 指定アニメーションを再生
    *
    * @param name アニメーション名(存在しない場合は何もしない)
@@ -160,6 +164,8 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
    * **Experimental: method name might change**
    *
    * Set animation after some animation
+   *
+   * [jp]
    * 指定アニメーションの次のアニメーションを設定
    *
    * @param animTag
@@ -178,10 +184,13 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
 
   /**
    * Enable/Disable looping for specified animation
+   *
+   * [jp]
    * 指定アニメーションのループ設定を行う
    *
-   * @param animTag アニメーション名
-   * If no tag is specified, all animation-loop is enabled/disabled
+   * @param animTag
+   * [en] If no tag is specified, all animation-loop is enabled/disabled
+   * [jp] アニメーション名: タグ未指定のときは全てのアニメーションのループ設定を変更
    *
    * @param flag ループ設定
    */
