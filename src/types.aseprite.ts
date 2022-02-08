@@ -1,3 +1,5 @@
+import { CommonKeyType } from './types.common'
+
 type AsepriteAnimationDirection = 'forward' | 'reverse' | 'pingpong'
 
 interface Size {
@@ -39,7 +41,7 @@ export interface AsepriteFrameMap {
   [id: string]: AsepriteFrameData
 }
 
-export interface AsepriteAnimationTag<AT> {
+export interface AsepriteAnimationTag<AT = CommonKeyType> {
   /**
    * Animation Tag name
    */
@@ -61,7 +63,7 @@ export interface AsepriteAnimationTag<AT> {
   direction: AsepriteAnimationDirection
 }
 
-export interface AsepriteExportedJson<AT> {
+export interface AsepriteExportedJson<AT = CommonKeyType> {
   /**
    * Frames.
    * Typing depends on your aseprite export setting
