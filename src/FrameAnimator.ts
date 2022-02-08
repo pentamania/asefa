@@ -34,9 +34,16 @@ export class FrameAnimator<AT extends CommonKeyType = string> {
    *
    * @param ss
    */
-  setSpriteSheet(ss: Spritesheet<AT>) {
+  setSpritesheet(ss: Spritesheet<AT>) {
     this.ss = ss
     return this
+  }
+
+  /**
+   * @alias {@link FrameAnimator.setSpritesheet}
+   */
+  setSpriteSheet(ss: Spritesheet<AT>) {
+    return this.setSpritesheet(ss)
   }
 
   /**
