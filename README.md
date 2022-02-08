@@ -45,9 +45,15 @@ TODO
 
 ## Development
 
+### Setup
+
 `npm install`
 
-TODO
+### Build
+
+- Dev build: `npm run dev` or `npm start`
+- Production build: `npm run build`
+- Package: `npm run pack`
 
 ### Test
 
