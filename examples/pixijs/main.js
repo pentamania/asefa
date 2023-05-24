@@ -4,18 +4,7 @@ const ssImageSrc = '../assets/fox-animate.png'
 
 // Setting for crisp pixel image
 // https://github.com/pixijs/pixijs/issues/5613#issuecomment-485753685
-PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST
-
-/** Makeshift async pixi-texture loader */
-async function loadPixiTexture(src) {
-  const loader = new PIXI.Loader()
-  loader.add('tempKey', src)
-  return new Promise(res => {
-    loader.load((_loader, resources) => {
-      res(resources['tempKey'].texture)
-    })
-  })
-}
+PIXI.BaseTexture.defaultOptions.scaleMode = PIXI.SCALE_MODES.NEAREST
 
 /**
  * Helper: Sprite frame setter
@@ -40,7 +29,7 @@ function setSpriteFrame(pixiSprite, frame) {
   // Stage Set up
   {
     // Set up Sprite
-    const txt = await loadPixiTexture(ssImageSrc)
+    const txt = await PIXI.Assets.load(ssImageSrc)
     const sprite = PIXI.Sprite.from(txt)
     sprite.anchor.set(0.5, 0.5)
     sprite.position.set(app.view.width / 2, app.view.height / 2)
