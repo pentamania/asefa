@@ -4,7 +4,6 @@ import {
   AsepriteSliceData,
   AsepriteSliceKey,
 } from './types.aseprite'
-import { CommonKeyType } from './types.common'
 import { createFramesByTagProperty } from './helpers'
 
 export interface FrameData {
@@ -15,7 +14,7 @@ export interface FrameData {
   duration: number
 }
 
-export interface AnimationData<AT = CommonKeyType> {
+export interface AnimationData<AT> {
   frames: number[]
   next?: AT
   loop?: boolean
@@ -36,9 +35,9 @@ export interface AnimationData<AT = CommonKeyType> {
  *
  * ass.getFrame(0); // {someFramedata}
  */
-export class Spritesheet<AT extends CommonKeyType = string> {
+export class Spritesheet<AT extends string = string> {
   /** Reference to the original aseprite JSON data */
-  public data?: AsepriteExportedJson<AT>
+  public data?: AsepriteExportedJson
 
   /** All frames parsed from AsepriteExportedJson.frames */
   public frames: FrameData[] = []
@@ -52,7 +51,7 @@ export class Spritesheet<AT extends CommonKeyType = string> {
   /**
    * @param json optional
    */
-  constructor(json?: AsepriteExportedJson<AT>) {
+  constructor(json?: AsepriteExportedJson) {
     if (json != null) this.setup(json)
   }
 
@@ -69,7 +68,7 @@ export class Spritesheet<AT extends CommonKeyType = string> {
    * @param srcPathOrJson
    * URL of aseprite json file, or aseprite JSON object
    */
-  load(srcPathOrJson: string | AsepriteExportedJson<AT>): Promise<this> {
+  load(srcPathOrJson: string | AsepriteExportedJson): Promise<this> {
     return new Promise(resolve => {
       if (typeof srcPathOrJson === 'string') {
         // src is filepath
@@ -102,7 +101,7 @@ export class Spritesheet<AT extends CommonKeyType = string> {
    *
    * @param params
    */
-  public setup(params: AsepriteExportedJson<AT>): this {
+  public setup(params: AsepriteExportedJson): this {
     this.data = params
 
     this._resetFrames(params.frames)
@@ -124,7 +123,7 @@ export class Spritesheet<AT extends CommonKeyType = string> {
    *
    * @param rawFrames
    */
-  protected _resetFrames(rawFrames: AsepriteExportedJson<AT>['frames']) {
+  protected _resetFrames(rawFrames: AsepriteExportedJson['frames']) {
     this.frames.length = 0
 
     // Use Object.entries to support both "Hashmap" and "Array" type
@@ -145,10 +144,10 @@ export class Spritesheet<AT extends CommonKeyType = string> {
    *
    * @param frameTags
    */
-  protected _resetAnimations(frameTags: AsepriteAnimationTag<AT>[]) {
+  protected _resetAnimations(frameTags: AsepriteAnimationTag[]) {
     this.animations = Object.create(null)
     frameTags.forEach(tag => {
-      this.animations[tag.name] = {
+      this.animations[tag.name as AT] = {
         frames: createFramesByTagProperty(tag),
       }
     })
@@ -203,8 +202,8 @@ export class Spritesheet<AT extends CommonKeyType = string> {
    * @static
    * @param json
    */
-  static create<AT extends CommonKeyType>(json: AsepriteExportedJson<AT>) {
-    return new this(json)
+  static create<AT extends string>(json: AsepriteExportedJson) {
+    return new this<AT>(json)
   }
 
   /**

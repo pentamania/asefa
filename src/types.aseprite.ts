@@ -1,5 +1,3 @@
-import { CommonKeyType } from './types.common'
-
 type AsepriteAnimationDirection = 'forward' | 'reverse' | 'pingpong'
 
 interface Size {
@@ -41,11 +39,11 @@ export interface AsepriteFrameMap {
   [id: string]: AsepriteFrameData
 }
 
-export interface AsepriteAnimationTag<AT = CommonKeyType> {
+export interface AsepriteAnimationTag {
   /**
    * Animation Tag name
    */
-  name: AT
+  name: string
   /**
    * アニメーション開始フレーム番号
    * Animation starting frame No.
@@ -60,10 +58,25 @@ export interface AsepriteAnimationTag<AT = CommonKeyType> {
    * フレーム番号の進め方
    * How to progress frame count
    */
+  direction: string
+}
+
+/**
+ * [en]
+ * AsepriteAnimationTag with
+ * - Strict "direction" typing
+ * - Generics feature
+ *
+ * [jp]
+ * AsepriteAnimationTagの型を厳密化＋Generics機能追加
+ */
+export interface AsepriteAnimationTagStrict<AT extends string>
+  extends AsepriteAnimationTag {
+  name: AT
   direction: AsepriteAnimationDirection
 }
 
-export interface AsepriteExportedJson<AT = CommonKeyType> {
+export interface AsepriteExportedJson {
   /**
    * Frames.
    * Typing depends on your aseprite export setting
@@ -115,11 +128,16 @@ export interface AsepriteExportedJson<AT = CommonKeyType> {
      * @example
      * [{ name: "swing"; from: 0; to: 3; direction: "pingpong" }];
      */
-    frameTags: AsepriteAnimationTag<AT>[]
+    frameTags: AsepriteAnimationTag[]
 
     /**
      * Array of slice data
      */
     slices: AsepriteSliceData[]
   }
+}
+
+export interface AsepriteExportedJsonStrict<AT extends string>
+  extends AsepriteExportedJson {
+  frameTags: AsepriteAnimationTagStrict<AT>[]
 }

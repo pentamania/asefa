@@ -1,5 +1,4 @@
 import { Spritesheet, AnimationData, FrameData } from './SpriteSheet'
-import { CommonKeyType } from './types.common'
 
 /**
  * フレーム更新時のコールバック関数型
@@ -10,7 +9,7 @@ type FrameUpdateCallback = (frame: FrameData) => any
 /**
  * FrameAnimator class
  */
-export class FrameAnimator<AT extends CommonKeyType = string> {
+export class FrameAnimator<AT extends string = string> {
   protected ss: Spritesheet<AT>
   private _elapsedTime: number = 0
   private _finished: boolean = false
