@@ -21,6 +21,18 @@ export class FrameAnimator<AT extends string = string> {
   private _frameUpdateCallback?: FrameUpdateCallback
 
   /**
+   * アニメーション進行速度スケール
+   * Animation(frame transition) time scale
+   * [default: 1.0]
+   *
+   * @example
+   * const animator = new FrameAnimator(ss);
+   * animator.timeScale = 2; // x2 faster
+   * animator.timeScale = 0.5; // x0.5 slower
+   */
+  public timeScale: number = 1.0
+
+  /**
    * @param ss
    */
   constructor(ss: Spritesheet<AT> = new Spritesheet()) {
@@ -71,7 +83,7 @@ export class FrameAnimator<AT extends string = string> {
     }
 
     // 経過時間によるフレーム更新
-    this._elapsedTime += deltaTime
+    this._elapsedTime += deltaTime * this.timeScale
     if (this._currentFrameData && this._currentFrameData.duration != null) {
       if (this._currentFrameData.duration <= this._elapsedTime) {
         ++this._currentFrameIndex
