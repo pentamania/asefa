@@ -12,6 +12,9 @@ import { name } from './package.json'
 const extensions = ['.ts']
 const noDeclarationFiles = { compilerOptions: { declaration: false } }
 const licenseFileTemplatePath = join(__dirname, 'rollupLicenseBanner.ejs')
+const babelPluginTransformRuntimeOptions = {
+  corejs: 3,
+}
 
 export default [
   // commonJS (should be at first)
@@ -29,9 +32,7 @@ export default [
         plugins: [
           [
             '@babel/plugin-transform-runtime',
-            {
-              corejs: 3,
-            },
+            babelPluginTransformRuntimeOptions,
           ],
         ],
         babelHelpers: 'runtime',
@@ -61,13 +62,57 @@ export default [
         plugins: [
           [
             '@babel/plugin-transform-runtime',
-            {
-              corejs: 3,
-            },
+            babelPluginTransformRuntimeOptions,
           ],
         ],
         babelHelpers: 'runtime',
       }),
+      license({
+        banner: {
+          content: {
+            file: licenseFileTemplatePath,
+          },
+        },
+      }),
+    ],
+  },
+
+  // Browser-ready ESM, production + minify
+  {
+    input: 'src/index.ts',
+    output: {
+      file: `dist/${name}.mjs`,
+      format: 'esm',
+    },
+    plugins: [
+      // Compile typescript
+      typescript({ tsconfigOverride: noDeclarationFiles }),
+
+      // Add imports for babel&coreJs runtime modules
+      babel({
+        extensions,
+        plugins: [
+          [
+            '@babel/plugin-transform-runtime',
+            babelPluginTransformRuntimeOptions,
+          ],
+        ],
+        babelHelpers: 'runtime',
+      }),
+
+      // Fix/Resolve runtime imports
+      commonjs(),
+      nodeResolve(),
+
+      // Bundle babel (REVIEW: Not required?)
+      babel({ babelHelpers: 'bundled' }),
+
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      terser(),
+
+      // Add license comment (should be after minify)
       license({
         banner: {
           content: {
