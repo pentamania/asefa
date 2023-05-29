@@ -1,6 +1,6 @@
 {
   "name": "asefa",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "js library for aseprite exported spritesheet frame animation",
   "main": "lib/asefa.js",
   "unpkg": "dist/asefa.js",
