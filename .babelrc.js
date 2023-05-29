@@ -3,7 +3,9 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        targets: { browsers: ['ie >= 11'] },
+        targets: {
+          browsers: ['> 0.2%, not dead', 'not IE 11'],
+        },
         modules: false,
         loose: true,
       },
